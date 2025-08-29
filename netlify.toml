@@ -1,7 +1,7 @@
 [build]
-base = "apps/web"
+base    = "apps/web"
+command = "pnpm install && pnpm build"
 publish = ".next"
-command = "pnpm install && pnpm exec @netlify/next"
 
-[functions]
-directory = "netlify/functions"
+[[plugins]]
+package = "@netlify/next"
