@@ -1,0 +1,25 @@
+{
+  "name": "profiling",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev:web": "pnpm --filter @profiling/web dev",
+    "dev:worker": "pnpm --filter @profiling/worker dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "format": "prettier -w ."
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
+{
+  "scripts": {
+    "build": "next build",
+    "start": "next start",
+    "dev": "next dev"
+  },
+  "devDependencies": {
+    "@netlify/plugin-nextjs": "^5"
+  }
+}

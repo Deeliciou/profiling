@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Party {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  abbreviation String?
+  politicians Politician[]
+  createdAt   DateTime     @default(now())
+}
+
+model Politician {
+  id        String     @id @default(uuid())
+  fullName  String
+  slug      String     @unique
+  party     Party?     @relation(fields: [partyId], references: [id])
+  partyId   String?
+  tenures   Tenure[]
+  votes     Vote[]
+  createdAt DateTime   @default(now())
+}
+
+model Commission {
+  id    String @id @default(uuid())
+  name  String
+  code  String @unique
+  tenures Tenure[]
+}
+
+model Role {
+  id    String @id @default(uuid())
+  name  String
+  scope String?
+  tenures Tenure[]
+}
+
+model Tenure {
+  id            String     @id @default(uuid())
+  politician    Politician @relation(fields:[politicianId], references:[id])
+  politicianId  String
+  role          Role       @relation(fields:[roleId], references:[id])
+  roleId        String
+  commission    Commission? @relation(fields:[commissionId], references:[id])
+  commissionId  String?
+  party         Party?     @relation(fields:[partyId], references:[id])
+  partyId       String?
+  startDate     DateTime?
+  endDate       DateTime?
+  isCurrent     Boolean   @default(false)
+}
+
+model Vote {
+  id           String     @id @default(uuid())
+  politician   Politician @relation(fields:[politicianId], references:[id])
+  politicianId String
+  year         Int
+  region       String?
+  totalVotes   Int
+  source       String?
+  @@index([politicianId, year])
+}
