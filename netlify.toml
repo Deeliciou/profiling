@@ -1,15 +1,7 @@
-# netlify.toml (ROOT)
-
 [build]
-  # Build dari ROOT supaya pnpm workspace kebaca
-  command = "npm i -g pnpm && pnpm install && pnpm --filter ./apps/web build"
-  publish = "apps/web/.next"
+base = "apps/web"
+publish = ".next"
+command = "pnpm install && pnpm exec @netlify/next"
 
-[build.environment]
-  NODE_VERSION = "20"
-  PNPM_VERSION = "10.15.0"
-  # opsional biar install lebih cepat
-  NPM_FLAGS = "--no-fund --no-audit"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+[functions]
+directory = "netlify/functions"
