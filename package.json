@@ -2,10 +2,12 @@
   "name": "profiling-root",
   "private": true,
   "packageManager": "pnpm@10.15.0",
-  "workspaces": [
-    "apps/*"
-  ],
+  "workspaces": ["apps/*"],
   "devDependencies": {
-    "@netlify/next": "^1.4.9"
+    "@netlify/next": "^1.4.9",
+    "prettier": "^3.6.2"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
